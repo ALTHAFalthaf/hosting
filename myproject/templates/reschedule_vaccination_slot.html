@@ -1,0 +1,31 @@
+<!-- reschedule_vaccination_slot.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reschedule Vaccination Slot</title>
+</head>
+<body>
+    <h1>Reschedule Vaccination Slot</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="new_date">New Date:</label>
+        <input type="date" name="new_date" id="new_date">
+        <br><br>
+        <label for="new_slot">New Slot:</label>
+        <select name="new_slot" id="new_slot">
+            <option value="Morning">Morning</option>
+            <option value="Afternoon">Afternoon</option>
+            <option value="Evening">Evening</option>
+        </select>
+        <br><br>
+        <button type="submit">Reschedule Slot</button>
+    </form>
+
+    <script>
+        
+    </script>
+</body>
+</html>

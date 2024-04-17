@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Mico</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'myproject/css/bootstrap.css' %}" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="{% static 'myproject/css/font-awesome.min.css' %}" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+        integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'myproject/css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{% static 'myproject/css/responsive.css' %}" rel="stylesheet" />
+
+
+    <style>
+        /* Custom CSS for available vaccines page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f2f2f2; /* Set the background color of the page */
+        }
+    
+        .vaccine-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the width of each box as needed */
+            grid-gap: 30px; /* Adjust the gap between boxes as needed */
+        }
+    
+        .vaccine-item {
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff; /* Set the background color of each box */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a box shadow for depth */
+            transition: transform 0.3s ease; /* Add a smooth transition effect */
+        }
+    
+        .vaccine-item:hover {
+            transform: translateY(-5px); /* Add a slight lift effect on hover */
+        }
+    
+        .vaccine-item h3 {
+            margin-top: 0;
+            margin-bottom: 10px; /* Adjust spacing as needed */
+            color: #333333; /* Set the color of the vaccine name */
+        }
+    
+        .vaccine-item p {
+            margin-bottom: 0;
+            color: #666666; /* Set the color of additional details */
+        }
+
+        .vaccine-item form {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .vaccine-item form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .vaccine-item form input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .vaccine-item form button[type="submit"] {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .vaccine-item form button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+
+                /* Modal background */
+    .modal-background {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 0%;
+        background-color: #f7f4f4dd;
+        z-index: 9999;
+    }
+
+    /* Modal content */
+    .modal-content {
+        display: none;
+        position: fixed;
+        top: 5%;
+        left: 75%;
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        z-index: 10000;
+    }
+    </style>
+    
+    
+</head>
+
+<body>
+    <body>
+        <div class="hero_area">
+            <!-- header section strats -->
+            <header class="header_section">
+              <div class="header_top">
+                <div class="container">
+                  <div class="contact_nav">
+                    <a href="">
+                      <i class="fa fa-phone" aria-hidden="true"></i>
+                      <span>
+                        Call : +91 8078764190
+                      </span>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                      <span>
+                        Email : kiddoguard12@gmail.com
+                      </span>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      <span>
+                        Kerala
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="header_bottom">
+                <div class="container-fluid">
+                  <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="index.html">
+                      <img src="{% static '/myproject/images/logo.png' %}" alt="">
+                    </a>
+        
+        
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class=""> </span>
+                    </button>
+        
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
+                        <ul class="navbar-nav  ">
+                          <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'company_home' %}">Home <span class="sr-only">(current)</span></a>
+                          </li>
+                        </ul>
+                      </div>
+                        <form class="form-inline">
+                          <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </header>
+
+
+
+
+    <h1>Available Vaccines</h1>
+
+    <div class="modal-background">
+      <div class="modal-content">
+          <button onclick="closeModal()">Close</button>
+          <div class="messages">
+              {% for message in messages %}
+              <div class="message">{{ message }}</div>
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+
+    
+    <ul class="vaccine-list">
+        {% for vaccine in vaccines %}
+        <li class="vaccine-item">
+            <h3>{{ vaccine.name }}</h3>
+            <p>Edition Date: {{ vaccine.edition_date }}</p>
+            <p>Edition Status: {{ vaccine.edition_status }}</p>
+            <p>Last Updated Date: {{ vaccine.last_updated_date }}</p>
+            <p>price: {{vaccine.price}} </p>
+           
+            
+            {% if user.is_company %}
+        <form method="post" action="{% url 'delete_vaccine' vaccine.id %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
+        {% endif %}
+      </li>
+        {% endfor %}
+    </ul>
+
+        <!-- JavaScript for client-side validation -->
+        <script>
+            // Validate the quantity input field
+            document.addEventListener('DOMContentLoaded', function() {
+                var quantityInput = document.getElementById('quantity');
+                var quantityError = document.getElementById('quantity-error');
+    
+                quantityInput.addEventListener('input', function() {
+                    if (quantityInput.validity.valid) {
+                        quantityError.style.display = 'none';
+                    } else {
+                        quantityError.style.display = 'inline';
+                    }
+                });
+            });
+        </script>
+
+
+<script>
+  // Show modal when the page is loaded and messages are present
+  window.addEventListener('DOMContentLoaded', function () {
+      var messages = document.querySelector('.messages');
+      if (messages) {
+          var modalBackground = document.querySelector('.modal-background');
+          var modalContent = document.querySelector('.modal-content');
+
+          modalBackground.style.display = 'block';
+          modalContent.style.display = 'block';
+      }
+  });
+
+  // Hide modal when close button is clicked
+  function closeModal() {
+      var modalBackground = document.querySelector('.modal-background');
+      var modalContent = document.querySelector('.modal-content');
+
+      modalBackground.style.display = 'none';
+      modalContent.style.display = 'none';
+  }
+</script>
+
+
+
+
+
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container">
+            <p>
+                &copy; <span id="displayYear"></span> All Rights Reserved By
+                <a href="https://html.design/">Kiddoguard</a>
+            </p>
+        </div>
+    </footer>
+    <!-- footer section -->
+
+    <!-- jQery -->
+    <script src="{% static 'myproject/js/jquery-3.4.1.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'myproject/js/bootstrap.js' %}"></script>
+    <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+        integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+    <!-- owl slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js">
+    </script>
+    <!-- custom js -->
+    <script src="{% static 'myproject/js/custom.js' %}"></script>
+
+
+</body>
+
+</html>

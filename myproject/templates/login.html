@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('{% static "myproject/images/kidslog2.jpg" %}');
+            background-size: cover;
+        }
+
+        .login-container {
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(236, 223, 223, 0.2);
+            height: 75vh;
+            background-color:rgba(59, 116, 153, 0.885)
+            
+        }
+
+        .image-section {
+            flex: 1;
+            background-image: url('{% static "myproject/images/earth.png" %}');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .form-section {
+            flex: 1;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 0 10px 10px 0;
+            box-sizing: border-box;
+        }
+
+        .form-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .form-section input[type="email"],
+        .form-section input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-section input[type="email"]:focus,
+        .form-section input[type="password"]:focus {
+            border-color: #007bff;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .form-section button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .form-section button:hover {
+            background-color: #0056b3;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="image-section"></div>
+        <div class="form-section">
+            <h2>Login</h2>
+            <form id="login-form" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <label for="email">email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="error-message" id="email-error"></div>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div class="error-message" id="password-error"></div>
+
+                <button type="submit">Login</button>
+            </form>
+        
+            <p class="forgot-password"><a href="{% url 'password_reset' %}">Forgot Password</a></p>
+            <div class="signup-link">Create a new account? <a href="{% url 'signup' %}">Sign up</a></div>
+            {% for message in messages %}
+                <h3 style="color: darkred">{{ message }}</h3>
+            {% endfor %}
+        </div>
+
+        <script>
+            const loginForm = document.getElementById('login-form');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        
+            function showError(input, errorElement, message) {
+                errorElement.textContent = message;
+            }
+        
+            function clearError(errorElement) {
+                errorElement.textContent = '';
+            }
+        
+            // Real-time validation for email
+            email.addEventListener('input', function () {
+                clearError(emailError);
+                if (!emailPattern.test(email.value)) {
+                    showError(email, emailError, 'Invalid email format');
+                }
+            });
+        
+            // Real-time validation for password
+            password.addEventListener('input', function () {
+                clearError(passwordError);
+                if (!passwordRegex.test(password.value)) {
+                    showError(password, passwordError, 'Password must contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character');
+                }
+            });
+        
+            loginForm.addEventListener('submit', function (e) {
+                if (emailError.textContent || passwordError.textContent) {
+                    e.preventDefault();
+                }
+            });
+        
+            const signupButton = document.getElementById('signup-button');
+            signupButton.addEventListener('click', function () {
+                alert('Registration successful'); // Display an alert
+            });
+        </script>
+        
+    </body>
+    </html>

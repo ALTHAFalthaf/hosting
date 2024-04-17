@@ -1,0 +1,15 @@
+<!-- company_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company List</title>
+</head>
+<body>
+    <h1>Registered Companies</h1>
+    <ul>
+        {% for company in companies %}
+            <li>{{ company.name }} - {{ company.license_number }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

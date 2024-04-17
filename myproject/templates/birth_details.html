@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Details</title>
+    <!-- Add your CSS styles here -->
+    <style>
+        /* Add your custom CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>Birth Details</h1>
+    <div class="birth-details-container">
+        <h2>User Profile: {{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Place of Birth</th>
+                    <th>Weight</th>
+                    <th>Height</th>
+                    <th>Registration No</th>
+                    <th>RCH ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in birth_details %}
+                    <tr>
+                        <td>{{ detail.place_of_birth }}</td>
+                        <td>{{ detail.weight }}</td>
+                        <td>{{ detail.height }}</td>
+                        <td>{{ detail.regno }}</td>
+                        <td>{{ detail.rchid }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Add your JavaScript code or modal implementation here -->
+    <script>
+        // Add your JavaScript code here if needed
+    </script>
+</body>
+</html>

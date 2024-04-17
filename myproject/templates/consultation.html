@@ -1,0 +1,87 @@
+<!-- consultation.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation</title>
+    <!-- Add your CSS styling here -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 20px;
+            margin: 0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2e86c1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consultation</h1>
+
+    <form method="post" action="{% url 'consultation' %}">
+        {% csrf_token %}
+        <label for="vaccine_name">Vaccine Name:</label>
+        <input type="text" id="vaccine_name" name="vaccine_name" required>
+
+        <label for="dose_number">Dose Number:</label>
+        <select id="dose_number" name="dose_number" required>
+            <option value="1">Dose 1</option>
+            <option value="2">Dose 2</option>
+            <!-- Add more options if needed -->
+        </select>
+
+        <label for="consultation_notes">Consultation Notes:</label>
+        <textarea id="consultation_notes" name="consultation_notes" rows="4" required></textarea>
+
+        <button type="submit">Submit Consultation</button>
+    </form>
+</body>
+</html>

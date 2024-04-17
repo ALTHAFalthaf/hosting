@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Report</title>
+</head>
+<body>
+    <h1>Prescription Report</h1>
+    <p><strong>Patient Name:</strong> {{ appointment.child.child_fname }} {{ appointment.child.child_lname }}</p>
+    <p><strong>Doctor:</strong> Dr. {{ appointment.doctor.first_name }} {{appointment.doctor.last_name }}</p>
+    <p><strong>Vaccine:</strong> {{ prescription.vaccine}}</p>
+    <p><strong>Doses:</strong> {{ prescription.doses }}</p>
+    <p><strong>Comments:</strong> {{ prescription.comments }}</p>
+</body>
+</html>

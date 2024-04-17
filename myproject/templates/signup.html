@@ -1,0 +1,308 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            background-image: url('{% static "myproject/images/child2.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* Ensure content doesn't overflow */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .left-block {
+            float: left;
+            width: 50%;
+            box-sizing: border-box;
+            padding-right: 10px;
+        }
+
+        .right-block {
+            float: right;
+            width: 50%;
+            box-sizing: border-box;
+            padding-left: 10px;
+        }
+
+        label, input, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        button {
+            width: calc(100% - 24px); /* Adjust width */
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            clear: both;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-block">
+            <h2>Sign Up</h2>
+            <form id="signup-form" action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+                
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+                <div class="error-message" id="fname-error"></div>
+                
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname" placeholder="Enter your last name" required>
+                <div class="error-message" id="lname-error"></div>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div class="error-message" id="email-error"></div>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                <div class="error-message" id="phone-error"></div>
+
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+                <div class="error-message" id="dob-error"></div>
+
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <div class="error-message" id="gender-error"></div>
+
+
+                <button type="submit" value="signup">Sign Up</button>
+           
+        </div>
+
+        <div class="right-block">
+            <h2>Additional Information</h2>
+            
+        
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div class="error-message" id="password-error"></div>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                <div class="error-message" id="confirm_password-error"></div>
+            </form>
+        </div>
+
+        <div class="signup-link">Already have an account? <a href="{% url 'login' %}">Log in here</a>.</div>
+       
+       
+        {% for message in messages %}
+            <h3 style="color: darkred">{{ message }}</h3>
+        {% endfor %}
+    </div>
+
+    
+
+
+    <script>
+    const signupForm = document.getElementById('signup-form');
+    const fname = document.getElementById('fname');
+    const lname = document.getElementById('lname');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const dob = document.getElementById('dob');
+    const gender = document.getElementById('gender');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirm_password');
+    const fnameError = document.getElementById('fname-error');
+    const lnameError = document.getElementById('lname-error');
+    const emailError = document.getElementById('email-error');
+    const phoneError = document.getElementById('phone-error');
+    const dobError = document.getElementById('dob-error');
+    const genderError = document.getElementById('gender-error');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirm-password_error');
+    const successMessage = document.getElementById('success-message');
+
+    function showError(input, errorElement, message) {
+        errorElement.textContent = message;
+    }
+
+    function clearError(errorElement) {
+        errorElement.textContent = '';
+    }
+
+    // Event listener for form submission
+    signupForm.addEventListener('submit', function (e) {
+            // Reset success message
+            successMessage.textContent = '';
+
+
+    // Check if there are any error messages still displayed
+        if (fnameError.textContent || lnameError.textContent || emailError.textContent ||
+            phoneError.textContent || dobError.textContent ||
+            passwordError.textContent || confirmPasswordError.textContent) {
+            e.preventDefault();
+        }
+    });
+
+    fname.addEventListener('input', function () {
+    clearError(fnameError);
+    const namePattern = /^[a-zA-Z]{4,}$/;
+    if (!namePattern.test(fname.value)) {
+        showError(fname, fnameError, 'First name must have at least four characters and contain only letters.');
+    }
+    });
+
+    lname.addEventListener('input', function () {
+    clearError(lnameError);
+    const namePattern = /^[a-zA-Z]{4,}$/;
+    if (!namePattern.test(lname.value)) {
+        showError(lname, lnameError, 'Last name must have at least four characters and contain only letters.');
+    }
+    });
+
+    email.addEventListener('input', function () {
+    clearError(emailError);
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email.value)) {
+        showError(email, emailError, 'Invalid email format');
+    }
+    });
+
+    phone.addEventListener('input', function () {
+    clearError(phoneError);
+    const phonePattern = /^[6-9][0-9]{9}$/;
+    if (!phonePattern.test(phone.value)) {
+        showError(phone, phoneError, 'Phone number must start with a digit between 6 and 9, followed by 9 more digits and donot accept alphabets and special characters');
+        }
+    });
+
+
+
+    dob.addEventListener('input', function () {
+    clearError(dobError);
+
+    // Validate date format using regular expression
+    const dobPattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dobPattern.test(dob.value)) {
+        showError(dob, dobError, 'Date of Birth must be in yyyy-mm-dd format');
+        return; // Exit early if date format is invalid
+    }
+
+    // Convert date of birth to a Date object
+    const dobDate = new Date(dob.value);
+
+    // Validate year range (2005-2023)
+    const currentYear = new Date().getFullYear();
+    if (dobDate.getFullYear() < 2005 || dobDate.getFullYear() > 2023) {
+        showError(dob, dobError, 'Date of Birth must be between 2005 and 2023');
+        return; // Exit early if year is out of range
+    }
+
+    // Calculate age based on date of birth
+    const age = currentYear - dobDate.getFullYear();
+
+    // Validate age (0-18)
+    if (age < 0 || age > 18) {
+        showError(dob, dobError, 'Registration is only allowed for users with age 0-18');
+    }
+});
+     
+
+    gender.addEventListener('change', function () {
+        clearError(genderError);
+        const selectedGender = gender.value;
+        if (selectedGender !== 'male' && selectedGender !== 'female' && selectedGender !== 'other') {
+            showError(gender, genderError, 'Please select a valid gender');
+        }
+    });
+    
+
+    
+    password.addEventListener('input', function () {
+        clearError(passwordError);
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+        if (!passwordPattern.test(password.value)) {
+            showError(password, passwordError, 'Password must contain at least one numeric digit, one uppercase letter, one lowercase letter, and one special character, and be at least 8 characters long');
+        }
+    });
+
+    confirm_Password.addEventListener('input', function () {
+        clearError(confirm_PasswordError);
+        if (password.value !== confirmPassword.value) {
+            showError(confirm_Password, confirm_PasswordError, 'Passwords do not match');
+        }
+    });
+
+    
+
+      
+    
+    
+    </script>
+</body>
+</html>

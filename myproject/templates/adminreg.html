@@ -1,0 +1,886 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>User Accounts</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'myproject/css/bootstrap.css' %}" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="{% static 'myproject/css/font-awesome.min.css' %}" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+        integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'myproject/css/style.css' %}" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="{% static 'myproject/css/responsive.css' %}" rel="stylesheet" />
+
+    
+     <style>
+        /* Top-level CSS for table formatting */
+        body {
+            background-color:rgb(248, 252, 252) ;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .dashboard-heading {
+            font-size: 24px;
+            background-color: #00c6a9;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* CSS for Sidebar */
+        .sidebar {
+    width: 300px; /* Increase width */
+    background-color: #00c6a9; /* Darker background color */
+    color: #fff;
+    position: fixed;
+    height: 80%;
+    overflow: auto;
+}
+
+.sidebar a {
+    padding: 20px; /* Increase padding */
+    text-decoration: none;
+    font-size: 20px; /* Increase font size */
+    color: #fff;
+    display: block;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.nav-item active {
+    margin-bottom: 30px;
+    
+}
+
+
+
+        /* CSS for Content Area */
+         .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* CSS for Header */
+         .header {
+            background-color:#fff;
+            color: #00c6a9;
+            padding: 20px;
+            text-align: center;
+        } 
+
+        .h1 {
+            color: #333;
+        } 
+
+        /* CSS for the filter form */
+         form {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        form label {
+            margin-right: 10px;
+        } 
+
+        /* CSS for the filter button */
+         .filter-button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        } 
+
+         /* Style for the submenu */
+          .submenu {
+            /* Initially hide the submenu */
+            list-style: none;
+           padding-left: 0;
+        } 
+
+        .submenu li {
+            margin: 5px 0;
+        }
+
+        /* CSS for the user table */
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-left: 300px; /* Move table more to the right */
+            margin-right: auto; /* Keep table centered */
+        }
+
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .user-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .user-table tbody tr:hover {
+            background-color: #ddd;
+        }
+   
+
+
+
+        /* Styling for the filter dropdown */
+        /* select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .large-message-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 9999;
+        } */
+        
+        /* CSS for Message Box Content */
+        /* .message-content {
+            font-size: 18px;
+            text-align: center;
+        } */
+        
+        /* CSS for Close Button */
+        /* .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #333;
+        } */
+
+  /* Stylish CSS for company table */
+.company-table {
+    width: 50%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.company-table th,
+.company-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.company-table th {
+    background-color: #007bff;
+    color: #333;
+}
+
+.company-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.company-table button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.company-table button:hover {
+    background-color: #0056b3;
+}  
+
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container">
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                Call : +91 8078764190
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Email : Kiddoguard12@gmail.com
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Kerala
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container ">
+            <a class="navbar-brand" href="index.html">
+              <img src="{% static '/myproject/images/t1.png' %}" alt="">
+            </a>
+
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <div class="d-flex mr-auto flex-column flex-lg-row align-items-center">
+                <ul class="navbar-nav  ">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'adminreg'  %}">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                 
+
+
+                
+               
+                  <div class="quote_btn-container">
+                    <li class="nav-item ">
+                        <a class="nav-link" href=" " id="navbar" >
+                            <i class="fa fa-user" aria-hidden="true"></i><span>Welcome Admin</span>
+                        </a>
+                  <div class="quote_btn-container">
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'logout' %}"> <i class="fa fa-user" aria-hidden="true"></i><span>Logout</span></a>
+                  </div>
+                </li>
+                </ul>
+              </div>
+                <form class="form-inline">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+
+
+
+
+
+{% if messages %}
+    <div class="large-message-box">
+        <span class="close-button" onclick="closeMessageBox()">&times;</span>
+        <div class="message-content">
+            {% for message in messages %}
+                {{ message|safe }}<br>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="sidebar">
+        <div class="dashboard-heading">Dashboard</div>
+        <a href="#Patients" class="nav-link" id="Patients-link">Users</a>
+        <a href="#doctor" class="nav-link" id="doctor-link">Doctors</a>
+        <a href="#add-doctor" class="nav-link" id="adddoctor-link">Add Doctor</a>
+        <a href="{% url 'signup_healthcare_provider' %}" >Add Healthcare provider</a>
+        <a href="#healthcare-providers" class="nav-link" id="healthcare-provider-link">Healthcare providers</a>
+        <a href="#approved-doctors" class="nav-link" id="approved-doctor-link">Approved Doctors</a>
+        <a href="#appointment" class="nav-link" id="appointment-link">Appointments</a>
+        <a href="{% url 'register_company' %}">Register Company</a>
+        <a href= "#company" class="nav-link" id="company-link">Company</a>
+        <a href="{% url 'view_available_vaccines' %}" class="nav-link" id="vaccine-link">vaccine</a>
+        <a href="{% url 'load_vaccine_schedule' %}" class="nav-link" id="vaccine-link">Schedule</a>
+        <ul class="submenu">
+            
+        </ul>
+        
+    </div>
+    
+        <!-- Header -->
+        <div class="header">
+            <h1>Welcome to the Admin Dashboard</h1>
+        </div>
+        <h1></h1>
+
+   
+        
+        <!-- Table for patients-->
+       
+
+        <div id="Patients-table" class="user-table">
+            <h2>Users</h2>
+            <!-- Add the table for patients here -->
+            <form method="post">
+                {% csrf_token %} 
+                <table>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user_profile in user_profiles %}
+                            {% if not user_profile.is_superuser and user_profile.role != 'Doctor' and user_profile.role != 'Healthcare Provider' %} {# Check if the user is not a superuser #}
+                                    <tr>
+                                        <td>{{ user_profile.first_name }}</td>
+                                        <td>{{ user_profile.last_name }}</td>
+                                        <td>{{ user_profile.email }}</td>
+                                        <td>{{ user_profile.dob }}</td>
+                                        <td>{{ user_profile.phone }}</td>
+                                        <td>{{ user_profile.role }}</td>
+                                        <td>
+                                            {% if user_profile.is_active %}
+                                                <form method="post" action="{% url 'deactivate_user' user_profile.id %}">
+                                                   {% csrf_token %}
+                                                   <button type="submit">Deactivate</button>
+                                                </form>
+                                            {% else %}
+                                                <form method="post" action="{% url 'activate_user' user_profile.id %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit">Activate</button>
+                                                </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                            {% endif %}   
+                        {% endfor %}
+                    </tbody>
+                </table>  
+                
+                <h1>Birth Details</h1>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Place of Birth</th>
+                            <th>Weight</th>
+                            <th>Height</th>
+                            <th>Registration No</th>
+                            <th>RCH ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detail in birth_details %}
+                            <tr>
+                                <td>{{ detail.place_of_birth }}</td>
+                                <td>{{ detail.weight }}</td>
+                                <td>{{ detail.height }}</td>
+                                <td>{{ detail.regno }}</td>
+                                <td>{{ detail.rchid }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+
+
+
+
+    
+
+
+    <div id="approved-doctors-table" class="user-table">
+        <h1>Approved Doctors</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Date of Birth</th>
+                    <th>License Number</th>
+                    <th>License copy</th>
+                    <th>Resume</th>
+                    <th>Photo</th>
+                    <th>Approval Status</th>
+                    <th>current status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in approved_doctors %}
+                    <tr>
+                        <td>{{ doctor.first_name }}</td>
+                        <td>{{ doctor.last_name }}</td>
+                        <td>{{ doctor.email }}</td>
+                        <td>{{ doctor.phone }}</td>
+                        <td>{{ doctor.date_of_birth }}</td>
+                        <td>{{ doctor.license_number}}</td>
+                        <td>
+                            {% if doctor.license_copy %}
+                                <a href="{{ doctor.license_copy.url }}" download>Download</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if doctor.resume %}
+                                <a href="{{ doctor.resume.url }}" download>Download</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if doctor.photo %}
+                                <img src="{{ doctor.photo.url }}" alt="Doctor Photo" style="width: 50px; height: 50px;">
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>Approved</td>
+                        <td>
+                            {% if doctor.is_active %}
+                            <form method="post" action="{% url 'deactivate_user' doctor.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Deactivate</button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{% url 'activate_user' doctor.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Activate</button>
+                            </form>
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div id="healthcare-provider-table" class="user-table">
+        <h1> Healthcare Providers</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>License Number</th>
+                    <th>License Copy</th>
+                    <th>Resume</th>
+                    <th>Profile Picture</th>
+                    <th>Actions</th> <!-- Added Actions column -->
+                    <th>Approval Status</th>
+                    <th>Current Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for provider in providers %}
+                <tr>
+                    <td>{{ provider.first_name }}</td>
+                    <td>{{ provider.last_name }}</td>
+                    <td>{{ provider.email }}</td>
+                    <td>{{ provider.phone }}</td>
+                    <td>{{ provider.license_number }}</td>
+                    <td>
+                        {% if provider.license_copy %}
+                        <a href="{{ provider.license_copy.url }}" download>Download</a>
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if provider.resume %}
+                        <a href="{{ provider.resume.url }}" download>Download</a>
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if provider.photo %}
+                        <img src="{{ provider.photo.url }}" alt="Profile Picture" style="width: 50px; height: 50px;">
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" action="{% url 'generate_password_provider' provider_id=provider.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="provider_id" value="{{ provider.id }}">
+                            <button type="submit">Generate Password</button>
+                        </form>
+                    </td>
+                    <td>Approved</td>
+                    <td>
+                        {% if provider.is_active %}
+                        <form method="post" action="{% url 'deactivate_user' provider.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Deactivate</button>
+                        </form>
+                        {% else %}
+                        <form method="post" action="{% url 'activate_user' provider.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Activate</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+
+   
+
+
+
+
+
+
+
+    <div id="adddoctor-table" class="user-table">
+    
+    <h1>Unapproved Doctors</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>phone</th>
+                <th>Date of Birth</th>
+                <th>License number</th>
+                <th>Approval</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.first_name }}</td>
+                    <td>{{ doctor.last_name }}</td>
+                    <td>{{ doctor.email }}</td>
+                    <td>{{ doctor.phone }}</td>
+                    <td>{{ doctor.date_of_birth}}</td>
+                    <td>{{ doctor.license_number }}</td>
+                    <td>
+                        <form method="post" action="{% url 'approve_doctor' doctor.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Approve</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+  
+ <!-- Add this form after your 'Doctor' table -->
+ <h1>Add Doctor</h1>
+ <form method="post" action="{% url 'send_registration_email' %}" onsubmit="return validateForm()">
+     {% csrf_token %}
+     <label for="name">Name:</label>
+     <input type="text" id="name" name="name" required><br><br>
+ 
+     <label for="email">Email:</label>
+     <input type="email" id="email" name="email" required oninput="validateEmail()">
+     <span id="email-error" style="color: red;"></span><br><br>
+ 
+     <button type="submit">Send Registration Email</button>
+ </form>
+ 
+</div>
+
+     
+   
+
+
+    
+        <!-- <div id="vaccine-table" class="user-table"> -->
+        
+        <!-- <h1>Available Vaccines</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Vaccine Name</th>
+                    <th>Edition Date</th>
+                    <th>Edition Status</th>
+                    <th>Last Updated Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vaccine in vaccines %}
+                    <tr>
+                        <td>{{ vaccine.name }}</td>
+                        <td>{{ vaccine.edition_date }}</td>
+                        <td>{{ vaccine.edition_status }}</td>
+                        <td>{{ vaccine.last_updated_date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+
+
+
+    <div id="company-table" class="user-table"> 
+        <h1>Registered Companies</h1>
+        <table class="company-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                <tr>
+                    <td>{{ company.name }}</td>
+                    <td>{{ company.address }}</td>
+                    <td>{{ company.contact_email }}</td>
+                    <td>{{ company.status }}</td>
+                    <td>
+                       
+                        {% if company.status == 'Approved' %}
+                        <form method="post" action="{% url 'deactivate_company' company_id=company.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Deactivate</button>
+                        </form>                        
+                        {% else %}
+                        <form method="post" action="{% url 'approve_company' company_id=company.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Approve</button>
+                        </form>
+                        {% endif %}
+                        <button onclick="redirectToCompanyDetails('{{ company.id }}')">View Details</button>
+                        <form method="post" action="{% url 'view_vaccine' %}">
+                            {% csrf_token %}
+                            <button type="submit">View Vaccine</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+        
+   
+
+<script>
+    function validateEmail() {
+        var email = document.getElementById('email').value;
+        var emailError = document.getElementById('email-error');
+
+        // Email validation regex
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            emailError.textContent = 'Invalid email address';
+        } else {
+            emailError.textContent = ''; // Clear error message
+        }
+    }
+
+    function validateForm() {
+        var email = document.getElementById('email').value;
+        var emailError = document.getElementById('email-error');
+
+        // Email validation regex
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            emailError.textContent = 'Invalid email address';
+            return false; // Prevent form submission
+        } else {
+            emailError.textContent = ''; // Clear error message
+            return true; // Allow form submission
+        }
+    }
+
+   // Example JavaScript to update user counts dynamically
+$(document).ready(function() {
+    // Simulated counts, you can replace these with actual counts retrieved from your backend
+    var usersCount = 100; // Example count for users
+   
+
+    // Update counts in respective boxes
+    $("#users-count").text(usersCount);
+  
+
+    // You can add similar code to update counts for other sections
+}); 
+   
+    
+</script>
+
+   
+  
+
+
+
+<script src="script.js"></script>
+
+
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   <script>
+   
+   
+// Initialize event listeners for sidebar links
+document.getElementById("Patients-link").addEventListener("click", showTable("Patients-table"));
+document.getElementById("doctor-link").addEventListener("click", showTable("approved-doctors-table"));
+document.getElementById("adddoctor-link").addEventListener("click", showTable("adddoctor-table"));
+document.getElementById("healthcare-provider-link").addEventListener("click", showTable("healthcare-provider-table"));
+document.getElementById("approved-doctor-link").addEventListener("click", showTable("approved-doctors-table"));
+document.getElementById("appointment-link").addEventListener("click", showTable("appointment-table")); // Added this line
+document.getElementById("vaccine-link").addEventListener("click", showTable("vaccine-table")); 
+document.getElementById("company-link").addEventListener("click", showTable("company-table"));
+        
+
+// Function to show the table by ID
+function showTable(tableId) {
+    return function () {
+        // Hide all user-tables
+        const userTables = document.getElementsByClassName("user-table");
+        for (let i = 0; i < userTables.length; i++) {
+            userTables[i].style.display = "none";
+        }
+
+        // Show the selected table
+        const tableToDisplay = document.getElementById(tableId);
+        if (tableToDisplay) {
+            tableToDisplay.style.display = "block";
+        }
+    };
+}
+
+// Call the showTable function for "Patients" table when the page loads
+showTable("Patients-table")();
+
+
+        // Function to show the large message box
+        function showMessageBox() {
+            const messageBox = document.querySelector(".large-message-box");
+            messageBox.style.display = "block";
+        }
+
+        showTable("doctor")();
+        // Function to show the large message box
+        function showMessageBox() {
+            const messageBox = document.querySelector(".large-message-box");
+            messageBox.style.display = "block";
+        }
+    
+        // Function to close the large message box
+        function closeMessageBox() {
+            const messageBox = document.querySelector(".large-message-box");
+            messageBox.style.display = "none";
+        }
+    
+        // Call the showMessageBox function when the page loads
+        window.addEventListener("load", showMessageBox);
+        
+            // Function to show the large message box
+            function showMessageBox() {
+                const messageBox = document.querySelector(".large-message-box");
+                messageBox.style.display = "block";
+            }
+        
+            // Function to close the large message box
+            function closeMessageBox() {
+                const messageBox = document.querySelector(".large-message-box");
+                messageBox.style.display = "none";
+            }
+        
+            // Call the showMessageBox function when the page loads
+            window.addEventListener("load", showMessageBox);
+
+
+
+            function redirectToAvailableVaccines() { 
+            window.location.href = '/view-available-vaccines/';;  // Adjust the URL as needed
+    }
+      
+    </script>
+
+</body>
+</html>
+
+

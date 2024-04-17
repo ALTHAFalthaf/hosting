@@ -1,0 +1,3 @@
+[console_scripts]
+ensemble-cli = ensemble.bin.ensemble_cli:main
+

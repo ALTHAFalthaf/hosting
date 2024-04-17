@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Purchase</title>
+</head>
+<body>
+    <h1>Complete Purchase</h1>
+    <p>Are you sure you want to complete the purchase?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Purchase</button>
+    </form>
+</body>
+</html>

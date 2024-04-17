@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Provider</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Form Container Styles */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            background-color: rgb(0, 158, 40);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="file"] {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            padding: 5px 0;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-item {
+            grid-column: span 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Healthcare Provider</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'signup_healthcare_provider' %}" id="addProviderForm">
+            {% csrf_token %}
+            <div class="grid-container">
+                <div class="grid-item">
+                    <!-- Personal Information -->
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                    <span class="error-message" id="first_nameError"></span>
+                    
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                    <span class="error-message" id="last_nameError"></span>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                    
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <span class="error-message" id="phoneError"></span>
+                    
+                    
+                </div>
+                <div class="grid-item">
+
+                    
+                    <label for="license_number">License Number:</label>
+                    <input type="text" id="license_number" name="license_number" required>
+                    <span class="error-message" id="license_numberError"></span>
+                    
+                    <label for="certification">Certification:</label>
+                    <input type="text" id="certification" name="certification" required>
+                    <span class="error-message" id="certificationError"></span>
+                </div>
+            </div>
+            <!-- Documents -->
+            <label for="resume">Upload Resume:</label>
+            <input type="file" id="resume" name="resume">
+            
+            <label for="license_copy">Upload License Copy:</label>
+            <input type="file" id="license_copy" name="license_copy">
+            
+            <label for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo" required>
+            
+            <!-- Error Messages -->
+            <div class="grid-container">
+                <div class="grid-item">
+                    <span class="error-message" id="resumeError"></span>
+                    <span class="error-message" id="license_copyError"></span>
+                    <span class="error-message" id="photoError"></span>
+                </div>
+            </div>
+            
+            <button type="submit">Add Provider</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("addProviderForm");
+
+        form.addEventListener("input", function (event) {
+            // Reset error messages
+            const errorMessages = document.getElementsByClassName("error-message");
+            for (let i = 0; i < errorMessages.length; i++) {
+                errorMessages[i].textContent = "";
+            }
+
+            // Validate the fields
+            let isValid = true;
+
+            if (!isValidName("first_name")) {
+                isValid = false;
+            }
+
+            if (!isValidName("last_name")) {
+                isValid = false;
+            }
+
+            if (!isValidEmail("email")) {
+                isValid = false;
+            }
+
+            if (!isValidPhone("phone")) {
+                isValid = false;
+            }
+
+
+            if (!isValidLicenseNumber("license_number")) {
+                isValid = false;
+            }
+
+            if (!isValidCertification("certification")) {
+                isValid = false;
+            }
+
+            if (!isValidFile("resume")) {
+                isValid = false;
+            }
+
+            if (!isValidFile("license_copy")) {
+                isValid = false;
+            }
+
+            if (!isValidImage("photo")) {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if there are validation errors
+            }
+        });
+
+        function isValidName(fieldName) {
+            const nameField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            const namePattern = /^[A-Za-z\s]+$/;
+
+            if (!namePattern.test(nameField.value)) {
+                errorField.textContent = "Only letters and spaces are allowed.";
+                return false;
+            }
+
+            return true;
+        }
+
+        function isValidEmail(fieldName) {
+            const emailField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            if (!emailPattern.test(emailField.value)) {
+                errorField.textContent = "Enter a valid email address.";
+                return false;
+            }
+
+            return true;
+        }
+
+        function isValidPhone(fieldName) {
+            const phoneField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            const phonePattern = /^\d{10}$/;
+
+            if (!phonePattern.test(phoneField.value)) {
+                errorField.textContent = "Enter a valid 10-digit phone number.";
+                return false;
+            }
+
+            return true;
+        }
+
+      
+
+        function isValidLicenseNumber(fieldName) {
+            const licenseField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            // You can add more specific license number validation if needed
+
+            return true;
+        }
+
+        function isValidCertification(fieldName) {
+            const certificationField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            // You can add more specific certification validation if needed
+
+            return true;
+        }
+
+        function isValidFile(fieldName) {
+            const fileField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            const allowedFileTypes = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+
+            if (fileField.files.length > 0) {
+                const fileType = fileField.files[0].type;
+
+                if (!allowedFileTypes.includes(fileType)) {
+                    errorField.textContent = "Invalid file type. Allowed file types are PDF and Word documents.";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function isValidImage(fieldName) {
+            const imageField = document.getElementById(fieldName);
+            const errorField = document.getElementById(`${fieldName}Error`);
+            const allowedFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+            if (imageField.files.length > 0) {
+                const fileType = imageField.files[0].type;
+
+                if (!allowedFileTypes.includes(fileType)) {
+                    errorField.textContent = "Invalid image format. Allowed formats are JPEG, JPG, PNG, and GIF.";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
